@@ -22,13 +22,13 @@ function setup() {
     x = x + 50;
   
   }
-  log2 = createSprite(100,180,30)
+  log2 = createSprite(80,170,30)
   logGroup.add(log2)
-  log3  = createSprite(135,120,100,30)
+  log3  = createSprite(115,110,100,30)
   logGroup.add(log3)
-  log4 = createSprite(600,120,100,30)
+  log4 = createSprite(615,110,100,30)
   logGroup.add(log4)
-  log5 = createSprite(635,180,30)
+  log5 = createSprite(650,175,30)
   logGroup.add(log5)
   log6 = createSprite(370,176,450,30)
   logGroup.add(log6)
@@ -62,11 +62,15 @@ function setup() {
   tapbucket = createSprite(410,49,30,30)
   tapbucket.addImage(tapandbuket);
   tapbucket.scale=(0.2)
+  boy.debug=true
+  boy.setCollider("rectangle",0,0,40,80);
 
   x = x +100;
   
   for(var i = 6; i <13; i =i+1){
-    logs.push(createSprite(x, 275, 40, 50));
+    var block=createSprite(x, 275, 40, 50)
+    logGroup.add(block)
+    logs.push(block);
     logs[i].shapeColor = "yellow";
     x = x + 50;
   }
@@ -93,11 +97,23 @@ function draw() {
     }else if (keyDown("D")) {
       boy.x=boy.x+10
     }
+    
+    drawSprites();
+    if (logGroup.isTouching(boy)) {
+
+      boy.x=382
+      boy.y=328
+    }
+
+    if (boy.isTouching(tapbucket)) {
+      gameState="end"
+    }
   } else if (gameState==="end") {
-      
+    textSize(30)
+    text("Congrats Level Completed", 200,200)
+    
   }
   
   
-  drawSprites();
 }
 
